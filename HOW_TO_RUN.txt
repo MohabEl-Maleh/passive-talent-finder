@@ -1,0 +1,136 @@
+# HOW TO RUN THE PROJECT
+# =======================
+# Follow these steps in order. You only do the "First time setup" steps once.
+# After that, just use the "Daily start" commands.
+
+# ─────────────────────────────────────────────────────────────────────────────
+# REQUIREMENTS — install these on your machine first
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. Python 3.10 or higher  → https://www.python.org/downloads/
+# 2. Node.js 18 or higher   → https://nodejs.org/
+# 3. Git (optional)         → https://git-scm.com/
+
+# Check you have them:
+#   python --version     (should say 3.10+)
+#   node --version       (should say 18+)
+#   npm --version
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 1 — Open TWO terminal windows (one for backend, one for frontend)
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TERMINAL 1 — BACKEND (FastAPI)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Navigate to the backend folder
+cd passive-talent-finder/backend
+
+# --- First time only: create a virtual environment ---
+python -m venv venv
+
+# --- First time only: activate it ---
+# On Windows:
+venv\Scripts\activate
+# On Mac/Linux:
+source venv/bin/activate
+
+# --- First time only: install all Python packages ---
+pip install -r requirements.txt
+# Note: sentence-transformers will download the AI model (~90MB) on first run
+
+# --- Every time: activate the venv if not already active ---
+# Windows:  venv\Scripts\activate
+# Mac/Linux: source venv/bin/activate
+
+# --- Start the backend server ---
+uvicorn main:app --reload --port 8000
+
+# You should see:
+#   INFO:     Uvicorn running on http://127.0.0.1:8000
+#   INFO:     Application startup complete.
+
+# Test it works: open http://localhost:8000 in your browser
+# You should see: {"status": "Passive Talent Finder API is running"}
+
+# Bonus — interactive API docs (very useful for demo):
+# http://localhost:8000/docs
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TERMINAL 2 — FRONTEND (React)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Navigate to the frontend folder
+cd passive-talent-finder/frontend
+
+# --- First time only: install Node packages ---
+npm install
+# This will take 2-3 minutes
+
+# --- Start the frontend ---
+npm start
+
+# Your browser will open automatically at http://localhost:3000
+# The app hot-reloads — any file you save updates the browser instantly
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# STEP 2 — Train the AI model on the Kaggle dataset (do this once)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# 1. Download the dataset from Kaggle:
+#    https://www.kaggle.com/datasets/snehaanbhawal/resume-dataset
+#    Click "Download" → you get a zip file → extract it → find Resume.csv
+
+# 2. Open TERMINAL 1 (with venv activated) and run:
+cd passive-talent-finder
+python ml/scripts/train_on_kaggle_dataset.py --csv /path/to/Resume.csv
+
+# Replace /path/to/Resume.csv with the actual path on your machine
+# Example Windows: --csv C:\Users\Mohab\Downloads\resume-dataset\Resume.csv
+# Example Mac:     --csv ~/Downloads/resume-dataset/Resume.csv
+
+# The script will:
+#   - Parse all 2,484 resumes
+#   - Extract passivity signals from each
+#   - Train a Random Forest classifier
+#   - Print accuracy and feature importances
+#   - Save the model to backend/models/passivity_model.pkl
+
+# ─────────────────────────────────────────────────────────────────────────────
+# DAILY START (after first-time setup is done)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Terminal 1 (backend):
+cd passive-talent-finder/backend
+source venv/bin/activate        # Mac/Linux
+# OR: venv\Scripts\activate     # Windows
+uvicorn main:app --reload --port 8000
+
+# Terminal 2 (frontend):
+cd passive-talent-finder/frontend
+npm start
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# TROUBLESHOOTING
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Problem: "ModuleNotFoundError: No module named 'fastapi'"
+# Solution: Make sure your venv is activated before running uvicorn
+
+# Problem: "Port 8000 already in use"
+# Solution: uvicorn main:app --reload --port 8001
+#           Then update frontend/src/services/api.js baseURL to /api on port 8001
+
+# Problem: npm install fails
+# Solution: Make sure you have Node 18+. Run: node --version
+
+# Problem: sentence-transformers download is slow
+# Solution: It only downloads once (~90MB). Be patient on first run.
+
+# Problem: CORS error in browser console
+# Solution: Make sure backend is running on port 8000 and frontend on 3000

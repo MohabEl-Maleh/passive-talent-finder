@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Backend",
+      "type": "shell",
+      "command": "cd backend && venv\\Scripts\\activate && uvicorn main:app --reload --port 8000",
+      "group": "build",
+      "presentation": { "panel": "new", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Frontend",
+      "type": "shell",
+      "command": "cd frontend && npm start",
+      "group": "build",
+      "presentation": { "panel": "new", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup Backend (first time)",
+      "type": "shell",
+      "command": "cd backend && python -m venv venv && venv\\Scripts\\activate && pip install -r requirements.txt",
+      "group": "build",
+      "presentation": { "panel": "new", "reveal": "always" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Setup Frontend (first time)",
+      "type": "shell",
+      "command": "cd frontend && npm install",
+      "group": "build",
+      "presentation": { "panel": "new", "reveal": "always" },
+      "problemMatcher": []
+    }
+  ]
+}

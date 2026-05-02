@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "Passive Talent Finder",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "${workspaceFolder}/backend/venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    "editor.formatOnSave": true,
+    "editor.fontSize": 14,
+    "editor.tabSize": 2,
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "files.associations": { "*.jsx": "javascriptreact" },
+    "tailwindCSS.includeLanguages": { "javascriptreact": "html" },
+    "emmet.includeLanguages": { "javascript": "javascriptreact" }
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "ms-python.pylance",
+      "dsznajder.es7-react-js-snippets",
+      "bradlc.vscode-tailwindcss",
+      "rangav.vscode-thunder-client"
+    ]
+  }
+}
