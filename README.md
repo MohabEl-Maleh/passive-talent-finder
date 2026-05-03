@@ -22,10 +22,9 @@ passive-talent-finder/
 - **Hiring Manager**: defines success criteria, approves/rejects shortlists, provides AI feedback
 
 ## AI Engine — Dual Score System
-Every candidate gets two scores:
-1. **Passivity Score (0–100)**: how unlikely they are to be actively job-hunting
-2. **Job-Fit Score (0–100)**: semantic similarity to the job description
-3. **Composite Score**: weighted combination (adjustable by recruiter)
+Every candidate gets one scores:
+1. **Job-Fit Score (0–100)**: semantic similarity to the job description
+2. **Composite Score**: weighted combination (adjustable by recruiter)
 
 ## How to Run
 See backend/README.md and frontend/README.md for setup instructions.
