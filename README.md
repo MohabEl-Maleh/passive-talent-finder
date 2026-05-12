@@ -27,8 +27,16 @@ Every candidate gets one scores:
 2. **Composite Score**: weighted combination (adjustable by recruiter)
 
 ## How to Run
-See backend/README.md and frontend/README.md for setup instructions.
-
+Step 1 — Open Cursor and start both servers:
+Terminal 1 (Backend):
+cd backend
+venv\Scripts\activate
+set GROQ_API_KEY=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
+uvicorn main:app --port 8000
+Terminal 2 (Frontend):
+cd frontend
+npm start
+Step 2 — Open browser at http://localhost:3000
 ## Future Extension
 To add a new HR module (e.g., Onboarding):
 - Add `backend/routers/onboarding.py`
